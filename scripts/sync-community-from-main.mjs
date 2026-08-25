@@ -19,6 +19,7 @@ const sourceInventoryPath = join(sourceRoot, "inventory", "source-code.json");
 await stat(sourceInventoryPath);
 
 const shellFiles = [
+  "src/browseTaxonomy.js",
   "src/catalogPresentation.js",
   "src/detailPreviews.ts",
   "src/routes.js",
@@ -375,16 +376,33 @@ export function SylvaLivingWorldScene({ className = "", style }: SylvaLivingWorl
 }
 
 function sanitizeSparkBadgeHtml(source) {
-  const lines = source.split("\n");
-  const keep = [
-    ...lines.slice(0, 19),
-    "const sceneVariant = 'badge';",
-    ...lines.slice(22, 147),
-    ...lines.slice(167, 177),
-    ...lines.slice(178, 211),
-    ...lines.slice(337),
-  ];
-  const result = keep.join("\n");
+  const replaceBetween = (value, start, end, replacement = "") => {
+    const from = value.indexOf(start);
+    const to = value.indexOf(end, from + start.length);
+    if (from < 0 || to < 0) throw new Error(`Could not isolate Spark Badge source between ${start} and ${end}.`);
+    return `${value.slice(0, from)}${replacement}${value.slice(to)}`;
+  };
+
+  const variantStart = "const params = new URLSearchParams(location.search);";
+  const variantEnd = "const runtimeControls = {";
+  let result = replaceBetween(source, variantStart, variantEnd, "const sceneVariant = 'badge';\n");
+
+  const silhouetteStart = "  if (sceneVariant === 'browser') {";
+  const badgeBranchStart = "  } else {\n    /* ---- lanyard";
+  const silhouetteEnd = "\n  }\n\n  // snapshot the un-carved silhouette for rain occlusion";
+  const silhouetteFrom = result.indexOf(silhouetteStart);
+  const badgeFrom = result.indexOf(badgeBranchStart, silhouetteFrom + silhouetteStart.length);
+  const silhouetteTo = result.indexOf(silhouetteEnd, badgeFrom + badgeBranchStart.length);
+  if (silhouetteFrom < 0 || badgeFrom < 0 || silhouetteTo < 0) {
+    throw new Error("Could not isolate the Spark Badge Community silhouette.");
+  }
+  const badgeBody = result.slice(badgeFrom + "  } else {\n".length, silhouetteTo);
+  result = `${result.slice(0, silhouetteFrom)}${badgeBody}${result.slice(silhouetteTo + "\n  }".length)}`;
+
+  result = replaceBetween(result, "  if (sceneVariant === 'browser') {", "\n  if (sceneVariant === 'iphone') {");
+  result = replaceBetween(result, "  if (sceneVariant === 'iphone') {", "\n  if (sceneVariant === 'studio-display') {");
+  result = replaceBetween(result, "  if (sceneVariant === 'studio-display') {", "\n  tilt(gm); tilt(ge);");
+
   for (const forbidden of ["requestedVariant", "sceneVariant ===", "studio-display", "iPhone", "browser chrome"]) {
     if (result.includes(forbidden)) throw new Error(`Spark Badge sanitization retained ${forbidden}.`);
   }
