@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { browseTagRoutePath } from "../routes.js";
 import { EllipsisIcon } from "./icons";
 
 const COLLAPSED_TAG_COUNT = 5;
@@ -17,15 +18,18 @@ export function ShaderTags({ tags, onSearch }: ShaderTagsProps) {
   return (
     <>
       {visibleTags.map((tag) => (
-        <button
-          type="button"
+        <a
           className="tag search-tag tag-link"
-          aria-label={`Search shaders tagged ${tag}`}
+          aria-label={`Browse components tagged ${tag}`}
+          href={browseTagRoutePath(tag)}
           key={tag}
-          onClick={() => onSearch(tag)}
+          onClick={(event) => {
+            event.preventDefault();
+            onSearch(tag);
+          }}
         >
           {tag}
-        </button>
+        </a>
       ))}
       {hasMoreTags ? (
         <button

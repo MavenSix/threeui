@@ -2302,6 +2302,12 @@ export function createBookshelfRenderer(host, canvas, callbacks = {}) {
       }
 
       const panelBounds = detailPanel.getBoundingClientRect();
+      if (panelBounds.width <= 0 && panelBounds.height <= 0) {
+        detailViewOffsetX = 0;
+        detailSafeWidth = viewWidth;
+        return;
+      }
+
       const panelLeft = panelBounds.left > 0 ? panelBounds.left : viewWidth * 0.64;
       const gutter = clamp(viewWidth * 0.035, 32, 56);
       detailSafeWidth = Math.max(viewWidth * 0.42, panelLeft - gutter);

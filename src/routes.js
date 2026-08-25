@@ -14,6 +14,7 @@ export const LEGAL_ROUTE_PATHS = {
 
 export const OAUTH_CONSENT_PATH = "/oauth/consent";
 export const AFFILIATES_ROUTE_PATH = "/affiliates";
+export const TAG_ROUTE_PREFIX = "/browse/tag";
 
 export function categoryRouteSegment(category) {
   return category
@@ -21,6 +22,22 @@ export function categoryRouteSegment(category) {
     .replace(/\.js\b/g, "-js")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+export function tagRouteSegment(tag) {
+  return tag
+    .toLowerCase()
+    .replace(/\.js\b/g, "-js")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function browseCategoryRoutePath(category) {
+  return `/${categoryRouteSegment(category)}`;
+}
+
+export function browseTagRoutePath(tag) {
+  return `${TAG_ROUTE_PREFIX}/${tagRouteSegment(tag)}`;
 }
 
 export function shaderRoutePath(shader, variantId) {
@@ -56,6 +73,26 @@ export const RENAMED_SHADER_VARIANTS = {
   "isometric-illustration": {
     dock: "search",
   },
+};
+
+/* Catalog records can move without making their previously published detail URLs
+   disappear. The current category always remains canonical. */
+export const LEGACY_SHADER_CATEGORY_SEGMENTS = {
+  "ascii-page-transition-hero": "hero",
+  "orrery-hero": "hero",
+  "trochil-hero": "hero",
+  "cortexa-hero": "hero",
+  "cathode-hero": "backgrounds",
+  "cadence-hero": "landing-pages",
+  "betawise-landing-page": "hero",
+  "betawise-hero": "hero",
+  "axonis-landing-page": "hero",
+  "mira-solvang-landing-page": "landing-pages",
+  "tidecrest-hero": "hero",
+  "nocturne-hero": "hero",
+  "meridian-landing-page": "landing-pages",
+  "tideform-hero": "hero",
+  "emberline-hero": "hero",
 };
 
 function findShader(catalog, id) {
@@ -125,6 +162,29 @@ export function resolveAppRoute(locationLike, catalog) {
   if (pathname === OAUTH_CONSENT_PATH) return { page: "oauth-consent", canonicalPath: OAUTH_CONSENT_PATH };
 
   const segments = pathname.slice(1).split("/").map(decodePathSegment);
+  if (segments.length === 1) {
+    const browseCategory = catalog.find((shader) => categoryRouteSegment(shader.category) === segments[0])?.category;
+    if (browseCategory) {
+      return {
+        page: "browse",
+        browseCategory,
+        canonicalPath: browseCategoryRoutePath(browseCategory),
+      };
+    }
+  }
+  if (segments.length === 3 && `/${segments[0]}/${segments[1]}` === TAG_ROUTE_PREFIX) {
+    const browseTag = catalog
+      .flatMap((shader) => shader.tags ?? [])
+      .find((tag) => tagRouteSegment(tag) === segments[2]);
+    if (browseTag) {
+      return {
+        page: "browse",
+        browseTag,
+        canonicalPath: browseTagRoutePath(browseTag),
+      };
+    }
+    return { page: "not-found", canonicalPath: pathname };
+  }
   if (segments.length !== 2 && segments.length !== 3) {
     return { page: "not-found", canonicalPath: pathname };
   }
@@ -148,13 +208,16 @@ export function resolveAppRoute(locationLike, catalog) {
   if (!selection) return { page: "not-found", canonicalPath: pathname };
 
   const expectedCategory = categoryRouteSegment(selection.shader.category);
-  if (segments[0] !== expectedCategory) return { page: "not-found", canonicalPath: pathname };
+  const usesLegacyCategory = LEGACY_SHADER_CATEGORY_SEGMENTS[selection.shader.id] === segments[0];
+  if (segments[0] !== expectedCategory && !usesLegacyCategory) {
+    return { page: "not-found", canonicalPath: pathname };
+  }
 
   const usesLegacyShaderSlug = segments[1] !== catalogSlug(selection.shader);
   const usesRenamedVariant = segments.length === 3
     && !usesLegacyVariantOrder
     && segments[2] !== selection.variantId;
-  return usesLegacyVariantOrder || usesGroupedVariantAlias || usesLegacyShaderSlug || usesRenamedVariant
+  return usesLegacyCategory || usesLegacyVariantOrder || usesGroupedVariantAlias || usesLegacyShaderSlug || usesRenamedVariant
     ? { ...selection, legacy: true }
     : selection;
 }

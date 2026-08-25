@@ -49,56 +49,58 @@ const CommunityRenderer47 = lazy(() => import("../shaders/rectangle-buttons/Rect
 const CommunityRenderer48 = lazy(() => import("../shaders/circle-buttons/CircleButtons").then((module) => ({ default: module.CircleButtons })));
 const CommunityRenderer49 = lazy(() => import("../shaders/liquid-metal-button/LiquidMetalButton").then((module) => ({ default: module.LiquidMetalButton })));
 const CommunityRenderer50 = lazy(() => import("../shaders/lumen-cta/LumenCta").then((module) => ({ default: module.LumenCta })));
-const CommunityRenderer51 = lazy(() => import("../shaders/character-carousel/CharacterCarousel").then((module) => ({ default: module.CharacterCarousel })));
-const CommunityRenderer52 = lazy(() => import("../shaders/character-carousel/CharacterCarousel").then((module) => ({ default: module.CharacterFilmstrip })));
-const CommunityRenderer53 = lazy(() => import("../shaders/character-carousel/CharacterCarousel").then((module) => ({ default: module.CharacterWave })));
-const CommunityRenderer54 = lazy(() => import("../shaders/gallery/Gallery").then((module) => ({ default: module.Gallery })));
-const CommunityRenderer55 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.CloudField })));
-const CommunityRenderer56 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.VoidField })));
-const CommunityRenderer57 = lazy(() => import("../shaders/sylva-living-world/SylvaLivingWorldScene").then((module) => ({ default: module.SylvaLivingWorldScene })));
-const CommunityRenderer58 = lazy(() => import("../shaders/temple-night/TempleNightScene").then((module) => ({ default: module.TempleNightScene })));
-const CommunityRenderer59 = lazy(() => import("../shaders/landscape/LandscapeScene").then((module) => ({ default: module.LandscapeScene })));
-const CommunityRenderer60 = lazy(() => import("../shaders/japanese-tower/JapaneseTowerLandscape").then((module) => ({ default: module.JapaneseTowerLandscape })));
-const CommunityRenderer61 = lazy(() => import("../shaders/bookshelf/BookshelfScene").then((module) => ({ default: module.BookshelfScene })));
-const CommunityRenderer62 = lazy(() => import("../shaders/structure-flow/StructureFlowCollection").then((module) => ({ default: module.StructureFlowCollection })));
-const CommunityRenderer63 = lazy(() => import("../shaders/emerald-horizon/EmeraldHorizonBackground").then((module) => ({ default: module.EmeraldHorizonBackground })));
-const CommunityRenderer64 = lazy(() => import("../shaders/orbital-sphere/OrbitalSphereBackground").then((module) => ({ default: module.OrbitalSphereBackground })));
-const CommunityRenderer65 = lazy(() => import("../shaders/dot-matrix/DotMatrixBackground").then((module) => ({ default: module.DotMatrixBackground })));
-const CommunityRenderer66 = lazy(() => import("../shaders/warp-field/WarpFieldBackground").then((module) => ({ default: module.WarpFieldBackground })));
-const CommunityRenderer67 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.ExpanseField })));
-const CommunityRenderer68 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.LogicCoreField })));
-const CommunityRenderer69 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.DimensionalField })));
-const CommunityRenderer70 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.DataField })));
-const CommunityRenderer71 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.TopologyField })));
-const CommunityRenderer72 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.HalftoneFlow })));
-const CommunityRenderer73 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.NeonTypography })));
-const CommunityRenderer74 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.EngravedCertificate })));
-const CommunityRenderer75 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.WovenCloth })));
-const CommunityRenderer76 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.NebulaBackground })));
-const CommunityRenderer77 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.FluidFieldBackground })));
-const CommunityRenderer78 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.EmberStorm })));
-const CommunityRenderer79 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.PerformanceGauges })));
-const CommunityRenderer80 = lazy(() => import("../shaders/uplink-loader/UplinkLoader").then((module) => ({ default: module.UplinkLoader })));
-const CommunityRenderer81 = lazy(() => import("../shaders/koi-studies/KoiStudies").then((module) => ({ default: module.KoiStudies })));
-const CommunityRenderer82 = lazy(() => import("../shaders/article-headings/TextAnimationCollection").then((module) => ({ default: module.TextAnimationCollection })));
-const CommunityRenderer83 = lazy(() => import("../shaders/animated-top-dock/AnimatedTopDock").then((module) => ({ default: module.AnimatedTopDock })));
-const CommunityRenderer84 = lazy(() => import("../shaders/sketchbook/Sketchbook").then((module) => ({ default: module.Sketchbook })));
-const CommunityRenderer85 = lazy(() => import("../shaders/constellation-field/ConstellationField").then((module) => ({ default: module.ConstellationField })));
-const CommunityRenderer86 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.ParticleDrift })));
-const CommunityRenderer87 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.ParticleNetwork })));
-const CommunityRenderer88 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.FluxVortex })));
-const CommunityRenderer89 = lazy(() => import("../shaders/portal-field/PortalFieldCollection").then((module) => ({ default: module.PortalFieldCollection })));
-const CommunityRenderer90 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.AmberHalftone })));
-const CommunityRenderer91 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.DiagnosticsPanel })));
-const CommunityRenderer92 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.SkeuomorphicToggle })));
-const CommunityRenderer93 = lazy(() => import("../shaders/laser/LaserCollection").then((module) => ({ default: module.LaserCollection })));
-const CommunityRenderer94 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.GatewayFlow })));
-const CommunityRenderer95 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.ConnectivityGraph })));
-const CommunityRenderer96 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.InterfaceLines })));
-const CommunityRenderer97 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.WireframeForms })));
-const CommunityRenderer98 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.DefenseLines })));
-const CommunityRenderer99 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.TopoField })));
-const CommunityRenderer100 = lazy(() => import("../shaders/brand-orbs/BrandOrbs").then((module) => ({ default: module.BrandOrbs })));
+const CommunityRenderer51 = lazy(() => import("../shaders/section-elements/SectionElements").then((module) => ({ default: module.EditorialIntroSection })));
+const CommunityRenderer52 = lazy(() => import("../shaders/section-elements/SectionElements").then((module) => ({ default: module.NewsletterFooterSection })));
+const CommunityRenderer53 = lazy(() => import("../shaders/character-carousel/CharacterCarousel").then((module) => ({ default: module.CharacterCarousel })));
+const CommunityRenderer54 = lazy(() => import("../shaders/character-carousel/CharacterCarousel").then((module) => ({ default: module.CharacterFilmstrip })));
+const CommunityRenderer55 = lazy(() => import("../shaders/character-carousel/CharacterCarousel").then((module) => ({ default: module.CharacterWave })));
+const CommunityRenderer56 = lazy(() => import("../shaders/gallery/Gallery").then((module) => ({ default: module.Gallery })));
+const CommunityRenderer57 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.CloudField })));
+const CommunityRenderer58 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.VoidField })));
+const CommunityRenderer59 = lazy(() => import("../shaders/sylva-living-world/SylvaLivingWorldScene").then((module) => ({ default: module.SylvaLivingWorldScene })));
+const CommunityRenderer60 = lazy(() => import("../shaders/temple-night/TempleNightScene").then((module) => ({ default: module.TempleNightScene })));
+const CommunityRenderer61 = lazy(() => import("../shaders/landscape/LandscapeScene").then((module) => ({ default: module.LandscapeScene })));
+const CommunityRenderer62 = lazy(() => import("../shaders/japanese-tower/JapaneseTowerLandscape").then((module) => ({ default: module.JapaneseTowerLandscape })));
+const CommunityRenderer63 = lazy(() => import("../shaders/bookshelf/BookshelfScene").then((module) => ({ default: module.BookshelfScene })));
+const CommunityRenderer64 = lazy(() => import("../shaders/structure-flow/StructureFlowCollection").then((module) => ({ default: module.StructureFlowCollection })));
+const CommunityRenderer65 = lazy(() => import("../shaders/emerald-horizon/EmeraldHorizonBackground").then((module) => ({ default: module.EmeraldHorizonBackground })));
+const CommunityRenderer66 = lazy(() => import("../shaders/orbital-sphere/OrbitalSphereBackground").then((module) => ({ default: module.OrbitalSphereBackground })));
+const CommunityRenderer67 = lazy(() => import("../shaders/dot-matrix/DotMatrixBackground").then((module) => ({ default: module.DotMatrixBackground })));
+const CommunityRenderer68 = lazy(() => import("../shaders/warp-field/WarpFieldBackground").then((module) => ({ default: module.WarpFieldBackground })));
+const CommunityRenderer69 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.ExpanseField })));
+const CommunityRenderer70 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.LogicCoreField })));
+const CommunityRenderer71 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.DimensionalField })));
+const CommunityRenderer72 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.DataField })));
+const CommunityRenderer73 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.TopologyField })));
+const CommunityRenderer74 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.HalftoneFlow })));
+const CommunityRenderer75 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.NeonTypography })));
+const CommunityRenderer76 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.EngravedCertificate })));
+const CommunityRenderer77 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.WovenCloth })));
+const CommunityRenderer78 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.NebulaBackground })));
+const CommunityRenderer79 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.FluidFieldBackground })));
+const CommunityRenderer80 = lazy(() => import("../shaders/neuform-isolated/NeuformCraftEffects").then((module) => ({ default: module.EmberStorm })));
+const CommunityRenderer81 = lazy(() => import("../shaders/neuform-isolated/NeuformIsolatedEffects").then((module) => ({ default: module.PerformanceGauges })));
+const CommunityRenderer82 = lazy(() => import("../shaders/uplink-loader/UplinkLoader").then((module) => ({ default: module.UplinkLoader })));
+const CommunityRenderer83 = lazy(() => import("../shaders/koi-studies/KoiStudies").then((module) => ({ default: module.KoiStudies })));
+const CommunityRenderer84 = lazy(() => import("../shaders/article-headings/TextAnimationCollection").then((module) => ({ default: module.TextAnimationCollection })));
+const CommunityRenderer85 = lazy(() => import("../shaders/animated-top-dock/AnimatedTopDock").then((module) => ({ default: module.AnimatedTopDock })));
+const CommunityRenderer86 = lazy(() => import("../shaders/sketchbook/Sketchbook").then((module) => ({ default: module.Sketchbook })));
+const CommunityRenderer87 = lazy(() => import("../shaders/constellation-field/ConstellationField").then((module) => ({ default: module.ConstellationField })));
+const CommunityRenderer88 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.ParticleDrift })));
+const CommunityRenderer89 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.ParticleNetwork })));
+const CommunityRenderer90 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.FluxVortex })));
+const CommunityRenderer91 = lazy(() => import("../shaders/portal-field/PortalFieldCollection").then((module) => ({ default: module.PortalFieldCollection })));
+const CommunityRenderer92 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.AmberHalftone })));
+const CommunityRenderer93 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.DiagnosticsPanel })));
+const CommunityRenderer94 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.SkeuomorphicToggle })));
+const CommunityRenderer95 = lazy(() => import("../shaders/laser/LaserCollection").then((module) => ({ default: module.LaserCollection })));
+const CommunityRenderer96 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.GatewayFlow })));
+const CommunityRenderer97 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.ConnectivityGraph })));
+const CommunityRenderer98 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.InterfaceLines })));
+const CommunityRenderer99 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.WireframeForms })));
+const CommunityRenderer100 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.DefenseLines })));
+const CommunityRenderer101 = lazy(() => import("../shaders/neuform-isolated/NeuformBatchEffects").then((module) => ({ default: module.TopoField })));
+const CommunityRenderer102 = lazy(() => import("../shaders/brand-orbs/BrandOrbs").then((module) => ({ default: module.BrandOrbs })));
 
 export type ContractRow = { name: string; type: string; value: string };
 export type RangeControl = { kind?: "range"; key: string; label: string; min: number; max: number; step: number; digits: number; default: number };
@@ -1108,6 +1110,8 @@ export const READY_SHADERS: readonly ReadyShader[] = [
     "sourceCommit": "SHA-256 e0330548b1ac",
     "sourceFiles": [
       "src/shaders/landing-pages/LandingPages.tsx",
+      "src/shaders/landing-pages/pageTypography.ts",
+      "src/shaders/landing-pages/pageRecipes.ts",
       "public/landing-pages/meng-to-sketchbook.html — byte-exact complete page",
       "public/landing-pages/meng-to-sketchbook/ — 17 local image and font assets"
     ],
@@ -1116,6 +1120,133 @@ export const READY_SHADERS: readonly ReadyShader[] = [
     "asset": "Fourteen local paper, botanical, and Singapore illustration images plus three local variable and display fonts",
     "assetCount": 17,
     "importName": "MengToSketchbookLandingPage",
+    "controls": [
+      {
+        "kind": "checkpoint",
+        "key": "headingFont",
+        "label": "Heading font",
+        "default": "instrument-serif",
+        "options": [
+          {
+            "value": "instrument-serif",
+            "label": "Instrument Serif"
+          },
+          {
+            "value": "newsreader",
+            "label": "Newsreader"
+          },
+          {
+            "value": "geist",
+            "label": "Geist"
+          }
+        ]
+      },
+      {
+        "kind": "checkpoint",
+        "key": "bodyFont",
+        "label": "Body font",
+        "default": "newsreader",
+        "options": [
+          {
+            "value": "newsreader",
+            "label": "Newsreader"
+          },
+          {
+            "value": "geist",
+            "label": "Geist"
+          },
+          {
+            "value": "instrument-serif",
+            "label": "Instrument Serif"
+          }
+        ]
+      },
+      {
+        "kind": "checkpoint",
+        "key": "headingWeight",
+        "label": "Heading weight",
+        "default": "400",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light · 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular · 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium · 500"
+          },
+          {
+            "value": "600",
+            "label": "Semibold · 600"
+          }
+        ]
+      },
+      {
+        "kind": "checkpoint",
+        "key": "bodyWeight",
+        "label": "Body weight",
+        "default": "400",
+        "options": [
+          {
+            "value": "200",
+            "label": "ExtraLight · 200"
+          },
+          {
+            "value": "300",
+            "label": "Light · 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular · 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium · 500"
+          },
+          {
+            "value": "600",
+            "label": "Semibold · 600"
+          }
+        ]
+      },
+      {
+        "kind": "color",
+        "key": "primaryColor",
+        "label": "Primary color",
+        "default": "#2b2721"
+      },
+      {
+        "key": "headingSize",
+        "label": "Heading size",
+        "min": 20,
+        "max": 48,
+        "step": 1,
+        "digits": 0,
+        "default": 30
+      },
+      {
+        "key": "bodySize",
+        "label": "Body size",
+        "min": 14,
+        "max": 30,
+        "step": 1,
+        "digits": 0,
+        "default": 20
+      },
+      {
+        "key": "headingLetterSpacing",
+        "label": "Heading tracking",
+        "min": -0.06,
+        "max": 0.12,
+        "step": 0.001,
+        "digits": 3,
+        "default": 0.01
+      }
+    ],
     "contract": [
       {
         "name": "document",
@@ -1126,6 +1257,36 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "name": "sourceUrl",
         "type": "fixed",
         "value": "/landing-pages/meng-to-sketchbook.html"
+      },
+      {
+        "name": "headingFont",
+        "type": "optional",
+        "value": "Instrument Serif | Newsreader | Geist"
+      },
+      {
+        "name": "bodyFont",
+        "type": "optional",
+        "value": "Newsreader | Geist | Instrument Serif"
+      },
+      {
+        "name": "headingWeight",
+        "type": "optional",
+        "value": "300 | 400 | 500 | 600"
+      },
+      {
+        "name": "bodyWeight",
+        "type": "optional",
+        "value": "200 | 300 | 400 | 500 | 600"
+      },
+      {
+        "name": "primaryColor",
+        "type": "optional",
+        "value": "Hex color — page ink and its opacity tints; the warm earth accent remains authored"
+      },
+      {
+        "name": "typography",
+        "type": "optional",
+        "value": "Nameplate and plate-title scale + body scale + heading tracking"
       },
       {
         "name": "layout",
@@ -1965,14 +2126,14 @@ export const READY_SHADERS: readonly ReadyShader[] = [
     "description": "A luminous credential badge held together by curl-noise embers, carved typography, rain occlusion, waterline sparks, and an adaptive particle field.",
     "runtime": "Canvas 2D",
     "origin": "HTML Pages",
-    "sourceCommit": "SHA-256 b7c958b2a44a",
+    "sourceCommit": "SHA-256 a8eefdee0d87",
     "sourceFiles": [
       "spark-badge.html — complete self-contained Canvas 2D particle scene",
       "src/shaders/spark-badge/spark-badge.html",
       "src/shaders/spark-badge/SparkBadge.tsx"
     ],
     "passes": "3 — rear rain, figure embers + waterline, foreground rain",
-    "interaction": "Ambient 17-second dissolve/reform cycle with reduced-motion and adaptive load governor",
+    "interaction": "Live speed, spark, rain, turbulence, and spread controls over the ambient 17-second dissolve/reform cycle",
     "asset": "One self-contained authored HTML badge scene; no external assets",
     "assetCount": 1,
     "importName": "SparkBadge",
@@ -1993,6 +2154,11 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "value": "3"
       },
       {
+        "name": "controls",
+        "type": "live",
+        "value": "Speed + sparks + rain + turbulence + spread"
+      },
+      {
         "name": "motion",
         "type": "adaptive",
         "value": "Visibility + reduced motion"
@@ -2003,13 +2169,60 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "value": "None"
       }
     ],
+    "controls": [
+      {
+        "key": "speed",
+        "label": "Speed",
+        "min": 0,
+        "max": 2,
+        "step": 0.01,
+        "digits": 2,
+        "default": 1
+      },
+      {
+        "key": "particleAmount",
+        "label": "Sparks",
+        "min": 0.35,
+        "max": 1.4,
+        "step": 0.01,
+        "digits": 2,
+        "default": 1
+      },
+      {
+        "key": "rainAmount",
+        "label": "Rain",
+        "min": 0,
+        "max": 1.5,
+        "step": 0.01,
+        "digits": 2,
+        "default": 1
+      },
+      {
+        "key": "turbulence",
+        "label": "Turbulence",
+        "min": 0,
+        "max": 2,
+        "step": 0.01,
+        "digits": 2,
+        "default": 1
+      },
+      {
+        "key": "spread",
+        "label": "Spread",
+        "min": 0.5,
+        "max": 1.75,
+        "step": 0.01,
+        "digits": 2,
+        "default": 1
+      }
+    ],
     "variants": [
       {
         "id": "badge",
         "label": "Badge",
         "description": "The original Codex credential assembled from luminous rain and curl-noise embers.",
         "thumbnail": "https://threeui.com/thumbnails/spark-badge.jpg",
-        "preview": "https://threeui.com/previews/spark-badge.mp4",
+        "preview": "https://threeui.com/previews/spark-badge.webm",
         "props": {}
       }
     ]
@@ -7186,11 +7399,23 @@ export const READY_SHADERS: readonly ReadyShader[] = [
       "glass",
       "glassmorphism",
       "dark glass",
+      "gradient border",
+      "inset arrow chip",
+      "halftone bloom",
+      "aster",
       "dot border",
       "technical outline",
       "launch",
       "amber",
       "tactile",
+      "keycap",
+      "arrow pill",
+      "trochil",
+      "attune",
+      "tideform",
+      "understory",
+      "meridian",
+      "halvorsen",
       "hover",
       "focus",
       "press",
@@ -7203,10 +7428,10 @@ export const READY_SHADERS: readonly ReadyShader[] = [
     "category": "Buttons",
     "label": "Rectangle Buttons",
     "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons.jpg",
-    "description": "Thirteen authored rectangle-button and animated CTA treatments collected into one family.",
+    "description": "Twenty-two authored rectangle-button and animated CTA treatments collected into one family.",
     "runtime": "DOM + CSS",
     "origin": "HTML Pages",
-    "sourceCommit": "SHA-256 df1b4f032d7e",
+    "sourceCommit": "SHA-256 f4f3dd8422cd",
     "sourceFiles": [
       "src/shaders/rectangle-buttons/RectangleButtons.tsx",
       "remote-control.html — shared button treatment",
@@ -7225,7 +7450,8 @@ export const READY_SHADERS: readonly ReadyShader[] = [
       "src/shaders/neuform-isolated/sources/gradient-cta.html",
       "src/shaders/lumen-cta/LumenCta.tsx",
       "src/shaders/lumen-cta/lumen-cta.css",
-      "src/shaders/lumen-cta/sources/lumen.html"
+      "src/shaders/lumen-cta/sources/lumen.html",
+      "halftone-bloom.html — Aster glass access and arrow CTA treatments"
     ],
     "passes": "1 selected DOM/CSS button composition",
     "interaction": "Variant selection with authored hover, focus, motion, and palette behavior",
@@ -7266,7 +7492,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
       {
         "name": "variants",
         "type": "fixed",
-        "value": "Dark Glass + Launch + Dot Border + Floating Dots + Sliding Text + Gradient Beam + Gradient Pill + Generate + Glassmorphism + Spinning Border + Gradient + Lumen CTA + Lumen CTA Ghost"
+        "value": "Dark Glass + Launch + Dot Border + Floating Dots + Sliding Text + Gradient Beam + Gradient Pill + Generate + Glassmorphism + Spinning Border + Gradient + Lumen CTA + Lumen CTA Ghost + Trochil Signal + Attune Thermal + Tideform Outline + Understory Arrow Pill + Meridian Keycap Primary + Meridian Keycap Secondary + Halvorsen Arrow Pill + Aster Glass Access + Aster Glass Arrow"
       }
     ],
     "controls": [
@@ -7486,6 +7712,501 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "preview": "https://threeui.com/previews/lumen-cta-ghost.webm",
         "props": {
           "variant": "lumen-cta-ghost"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "trochil-signal",
+        "label": "Trochil Signal",
+        "description": "The selected Trochil request-access treatment: a restrained black technical rectangle with a fine lit edge and passing warm signal sheen.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-trochil-signal.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-trochil-signal.webm",
+        "props": {
+          "variant": "trochil-signal"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "attune-thermal",
+        "label": "Attune Thermal",
+        "description": "The selected Attune primary action with a compact orange thermal gradient, inset highlight, grounded glow, and chevron.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-attune-thermal.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-attune-thermal.webm",
+        "props": {
+          "variant": "attune-thermal"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "tideform-outline",
+        "label": "Tideform Outline",
+        "description": "The selected Tideform action: a square technical outline with tracked mono type, warm hover state, and a long directional arrow.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-tideform-outline.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-tideform-outline.webm",
+        "props": {
+          "variant": "tideform-outline"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "understory-arrow-pill",
+        "label": "Understory Arrow Pill",
+        "description": "The selected Understory action with a violet capsule surface and an inset paper-toned circular arrow endcap.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-understory-arrow-pill.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-understory-arrow-pill.webm",
+        "props": {
+          "variant": "understory-arrow-pill"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "meridian-keycap-primary",
+        "label": "Meridian Keycap Primary",
+        "description": "The selected Meridian primary action rebuilt as a blue illuminated keycap with a physical base, LED, and pressed hover travel.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-meridian-keycap-primary.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-meridian-keycap-primary.webm",
+        "props": {
+          "variant": "meridian-keycap-primary"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "meridian-keycap-secondary",
+        "label": "Meridian Keycap Secondary",
+        "description": "The selected Meridian secondary action using the same tactile keycap geometry in its graphite night-side treatment.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-meridian-keycap-secondary.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-meridian-keycap-secondary.webm",
+        "props": {
+          "variant": "meridian-keycap-secondary"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "halvorsen-arrow-pill",
+        "label": "Halvorsen Arrow Pill",
+        "description": "The selected Halvorsen action: the shared editorial arrow-pill structure recut as a bone-white capsule with a black inset arrow disc.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-halvorsen-arrow-pill.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-halvorsen-arrow-pill.webm",
+        "props": {
+          "variant": "halvorsen-arrow-pill"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "aster-glass-access",
+        "label": "Aster Glass Access",
+        "description": "The compact Aster navigation action with a translucent smoke surface, masked crystalline edge, top sheen, and restrained hover lift.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-aster-glass-access.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-aster-glass-access.webm",
+        "props": {
+          "variant": "aster-glass-access"
+        },
+        "controls": [
+          {
+            "kind": "choice",
+            "key": "mode",
+            "label": "Mode",
+            "default": "dark",
+            "options": [
+              {
+                "value": "dark",
+                "label": "Dark"
+              },
+              {
+                "value": "light",
+                "label": "Light"
+              }
+            ]
+          },
+          {
+            "key": "hue",
+            "label": "Hue",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "digits": 0,
+            "default": 0
+          },
+          {
+            "key": "saturation",
+            "label": "Saturation",
+            "min": 0,
+            "max": 2,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          },
+          {
+            "key": "brightness",
+            "label": "Brightness",
+            "min": 0.35,
+            "max": 1.65,
+            "step": 0.01,
+            "digits": 2,
+            "default": 1
+          }
+        ]
+      },
+      {
+        "id": "aster-glass-arrow",
+        "label": "Aster Glass Arrow",
+        "description": "The Aster primary CTA using the same glass material with a bordered inset chip and a directional arrow that advances on hover.",
+        "thumbnail": "https://threeui.com/thumbnails/rectangle-buttons-aster-glass-arrow.jpg",
+        "preview": "https://threeui.com/previews/rectangle-buttons-aster-glass-arrow.webm",
+        "props": {
+          "variant": "aster-glass-arrow"
         },
         "controls": [
           {
@@ -8019,6 +8740,138 @@ export const READY_SHADERS: readonly ReadyShader[] = [
     ]
   }, component: CommunityRenderer50 },
   { ...{
+    "id": "editorial-intro",
+    "variantOf": "saas-dark",
+    "tags": [
+      "css",
+      "dom",
+      "section",
+      "editorial",
+      "intro",
+      "computer",
+      "circuits",
+      "typography",
+      "hero",
+      "gradient",
+      "unbranded"
+    ],
+    "category": "Sections",
+    "label": "Editorial Intro",
+    "thumbnail": "https://threeui.com/thumbnails/editorial-intro.jpg",
+    "description": "A centered editorial intro built around a dimly lit device illustration, circuit traces, and oversized gradient typography.",
+    "runtime": "DOM + CSS",
+    "origin": "HTML Pages",
+    "sourceCommit": "SHA-256 df1b4f032d7e",
+    "sourceFiles": [
+      "Original HTML — editorial heading and illustration",
+      "src/shaders/section-elements/SectionElements.tsx",
+      "src/shaders/section-elements/section-elements.css"
+    ],
+    "passes": "1 layered DOM/SVG composition",
+    "interaction": "Subtle device float and circuit drift with reduced-motion fallback",
+    "asset": "5 local font subsets + 3 authored SVG illustration layers",
+    "assetCount": 8,
+    "importName": "EditorialIntroSection",
+    "contract": [
+      {
+        "name": "renderer",
+        "type": "host",
+        "value": "React DOM + scoped CSS"
+      },
+      {
+        "name": "source",
+        "type": "fixed",
+        "value": "Owner-selected reference HTML"
+      },
+      {
+        "name": "theme",
+        "type": "fixed",
+        "value": "Dark"
+      },
+      {
+        "name": "layout",
+        "type": "responsive",
+        "value": "Container-relative 16:9 composition"
+      },
+      {
+        "name": "motion",
+        "type": "adaptive",
+        "value": "Reduced-motion safe"
+      },
+      {
+        "name": "assets",
+        "type": "owned",
+        "value": "Local fonts and illustrations"
+      }
+    ]
+  }, component: CommunityRenderer51 },
+  { ...{
+    "id": "newsletter-footer",
+    "variantOf": "saas-dark",
+    "tags": [
+      "css",
+      "dom",
+      "section",
+      "footer",
+      "form",
+      "newsletter",
+      "navigation",
+      "closing phrase",
+      "product",
+      "dark",
+      "unbranded"
+    ],
+    "category": "Sections",
+    "label": "Newsletter Footer",
+    "thumbnail": "https://threeui.com/thumbnails/newsletter-footer.jpg",
+    "description": "A dark unbranded product footer with an inline newsletter form, oversized closing phrase, and compact legal navigation.",
+    "runtime": "DOM + CSS",
+    "origin": "HTML Pages",
+    "sourceCommit": "SHA-256 df1b4f032d7e",
+    "sourceFiles": [
+      "Original HTML — newsletter footer",
+      "src/shaders/section-elements/SectionElements.tsx",
+      "src/shaders/section-elements/section-elements.css"
+    ],
+    "passes": "1 responsive DOM/CSS composition",
+    "interaction": "Email validation and animated inline success state",
+    "asset": "5 local font subsets + DOM-rendered marker and closing phrase",
+    "assetCount": 5,
+    "importName": "NewsletterFooterSection",
+    "contract": [
+      {
+        "name": "renderer",
+        "type": "host",
+        "value": "React DOM + scoped CSS"
+      },
+      {
+        "name": "source",
+        "type": "fixed",
+        "value": "Owner-selected reference HTML"
+      },
+      {
+        "name": "theme",
+        "type": "fixed",
+        "value": "Dark"
+      },
+      {
+        "name": "layout",
+        "type": "responsive",
+        "value": "Container-relative 16:9 composition"
+      },
+      {
+        "name": "motion",
+        "type": "adaptive",
+        "value": "Reduced-motion safe"
+      },
+      {
+        "name": "assets",
+        "type": "owned",
+        "value": "Local fonts and illustrations"
+      }
+    ]
+  }, component: CommunityRenderer52 },
+  { ...{
     "id": "character-carousel",
     "tags": [
       "css",
@@ -8163,7 +9016,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer51 },
+  }, component: CommunityRenderer53 },
   { ...{
     "id": "character-filmstrip",
     "variantOf": "character-carousel",
@@ -8281,7 +9134,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer52 },
+  }, component: CommunityRenderer54 },
   { ...{
     "id": "character-wave",
     "variantOf": "character-carousel",
@@ -8397,7 +9250,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer53 },
+  }, component: CommunityRenderer55 },
   { ...{
     "id": "gallery",
     "tags": [
@@ -8525,7 +9378,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer54 },
+  }, component: CommunityRenderer56 },
   { ...{
     "id": "cloud-field",
     "variantOf": "portal-field",
@@ -8607,7 +9460,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer55 },
+  }, component: CommunityRenderer57 },
   { ...{
     "id": "void-field",
     "variantOf": "predictive-arc",
@@ -8689,7 +9542,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer56 },
+  }, component: CommunityRenderer58 },
   { ...{
     "id": "sylva-living-world",
     "tags": [
@@ -8820,7 +9673,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer57 },
+  }, component: CommunityRenderer59 },
   { ...{
     "id": "temple-night",
     "tags": [
@@ -8904,7 +9757,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer58 },
+  }, component: CommunityRenderer60 },
   { ...{
     "id": "landscape",
     "tags": [
@@ -9072,7 +9925,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer59 },
+  }, component: CommunityRenderer61 },
   { ...{
     "id": "japanese-tower",
     "tags": [
@@ -9222,7 +10075,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer60 },
+  }, component: CommunityRenderer62 },
   { ...{
     "id": "bookshelf",
     "tags": [
@@ -9288,7 +10141,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "value": "2 exact owned atlases"
       }
     ]
-  }, component: CommunityRenderer61 },
+  }, component: CommunityRenderer63 },
   { ...{
     "id": "structure-flow",
     "tags": [
@@ -10081,7 +10934,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         ]
       }
     ]
-  }, component: CommunityRenderer62 },
+  }, component: CommunityRenderer64 },
   { ...{
     "id": "emerald-horizon",
     "variantOf": "structure-flow",
@@ -10188,7 +11041,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer63 },
+  }, component: CommunityRenderer65 },
   { ...{
     "id": "orbital-sphere",
     "variantOf": "structure-flow",
@@ -10304,7 +11157,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 0.2
       }
     ]
-  }, component: CommunityRenderer64 },
+  }, component: CommunityRenderer66 },
   { ...{
     "id": "dot-matrix",
     "variantOf": "structure-flow",
@@ -10420,7 +11273,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 0.35
       }
     ]
-  }, component: CommunityRenderer65 },
+  }, component: CommunityRenderer67 },
   { ...{
     "id": "warp-field",
     "tags": [
@@ -10593,7 +11446,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer66 },
+  }, component: CommunityRenderer68 },
   { ...{
     "id": "expanse-field",
     "variantOf": "structure-flow",
@@ -10676,7 +11529,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer67 },
+  }, component: CommunityRenderer69 },
   { ...{
     "id": "logic-core",
     "variantOf": "structure-flow",
@@ -10759,7 +11612,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer68 },
+  }, component: CommunityRenderer70 },
   { ...{
     "id": "dimensional-field",
     "variantOf": "structure-flow",
@@ -10842,7 +11695,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer69 },
+  }, component: CommunityRenderer71 },
   { ...{
     "id": "data-field",
     "variantOf": "structure-flow",
@@ -10925,7 +11778,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer70 },
+  }, component: CommunityRenderer72 },
   { ...{
     "id": "topology-field",
     "variantOf": "structure-flow",
@@ -11009,7 +11862,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer71 },
+  }, component: CommunityRenderer73 },
   { ...{
     "id": "halftone-flow",
     "variantOf": "predictive-arc",
@@ -11092,7 +11945,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer72 },
+  }, component: CommunityRenderer74 },
   { ...{
     "id": "neon-sign",
     "variantOf": "article-headings",
@@ -11179,7 +12032,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer73 },
+  }, component: CommunityRenderer75 },
   { ...{
     "id": "engraved-certificate",
     "tags": [
@@ -11262,7 +12115,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer74 },
+  }, component: CommunityRenderer76 },
   { ...{
     "id": "woven-cloth",
     "tags": [
@@ -11348,7 +12201,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer75 },
+  }, component: CommunityRenderer77 },
   { ...{
     "id": "nebula",
     "variantOf": "structure-flow",
@@ -11434,7 +12287,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer76 },
+  }, component: CommunityRenderer78 },
   { ...{
     "id": "fluid-field",
     "variantOf": "structure-flow",
@@ -11518,7 +12371,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer77 },
+  }, component: CommunityRenderer79 },
   { ...{
     "id": "ember-storm",
     "variantOf": "structure-flow",
@@ -11603,7 +12456,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer78 },
+  }, component: CommunityRenderer80 },
   { ...{
     "id": "performance-gauges",
     "tags": [
@@ -11849,7 +12702,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         ]
       }
     ]
-  }, component: CommunityRenderer79 },
+  }, component: CommunityRenderer81 },
   { ...{
     "id": "uplink-loader",
     "tags": [
@@ -11916,7 +12769,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "value": "No owned binary assets"
       }
     ]
-  }, component: CommunityRenderer80 },
+  }, component: CommunityRenderer82 },
   { ...{
     "id": "koi-studies",
     "tags": [
@@ -11995,7 +12848,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "value": "Reduced motion, reduced transparency, visibility, and focus aware"
       }
     ]
-  }, component: CommunityRenderer81 },
+  }, component: CommunityRenderer83 },
   { ...{
     "id": "article-headings",
     "tags": [
@@ -12303,7 +13156,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         ]
       }
     ]
-  }, component: CommunityRenderer82 },
+  }, component: CommunityRenderer84 },
   { ...{
     "id": "animated-top-dock",
     "tags": [
@@ -12420,7 +13273,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 3.5
       }
     ]
-  }, component: CommunityRenderer83 },
+  }, component: CommunityRenderer85 },
   { ...{
     "id": "sketchbook",
     "tags": [
@@ -12487,7 +13340,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "value": "17 exact local files"
       }
     ]
-  }, component: CommunityRenderer84 },
+  }, component: CommunityRenderer86 },
   { ...{
     "id": "constellation-field",
     "tags": [
@@ -12767,7 +13620,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer85 },
+  }, component: CommunityRenderer87 },
   { ...{
     "id": "particle-drift",
     "variantOf": "constellation-field",
@@ -12940,7 +13793,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer86 },
+  }, component: CommunityRenderer88 },
   { ...{
     "id": "particle-network",
     "variantOf": "constellation-field",
@@ -13114,7 +13967,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer87 },
+  }, component: CommunityRenderer89 },
   { ...{
     "id": "flux-vortex",
     "variantOf": "structure-flow",
@@ -13268,7 +14121,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer88 },
+  }, component: CommunityRenderer90 },
   { ...{
     "id": "portal-field",
     "tags": [
@@ -13497,7 +14350,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer89 },
+  }, component: CommunityRenderer91 },
   { ...{
     "id": "amber-halftone",
     "variantOf": "predictive-arc",
@@ -13672,7 +14525,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer90 },
+  }, component: CommunityRenderer92 },
   { ...{
     "id": "diagnostics-panel",
     "tags": [
@@ -13860,7 +14713,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer91 },
+  }, component: CommunityRenderer93 },
   { ...{
     "id": "skeuomorphic-toggle",
     "tags": [
@@ -14010,7 +14863,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer92 },
+  }, component: CommunityRenderer94 },
   { ...{
     "id": "matrix-field",
     "tags": [
@@ -14197,7 +15050,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer93 },
+  }, component: CommunityRenderer95 },
   { ...{
     "id": "gateway-flow",
     "variantOf": "constellation-field",
@@ -14370,7 +15223,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer94 },
+  }, component: CommunityRenderer96 },
   { ...{
     "id": "connectivity-graph",
     "variantOf": "constellation-field",
@@ -14544,7 +15397,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer95 },
+  }, component: CommunityRenderer97 },
   { ...{
     "id": "interface-lines",
     "variantOf": "constellation-field",
@@ -14717,7 +15570,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer96 },
+  }, component: CommunityRenderer98 },
   { ...{
     "id": "wireframe-forms",
     "tags": [
@@ -14928,7 +15781,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer97 },
+  }, component: CommunityRenderer99 },
   { ...{
     "id": "defense-lines",
     "variantOf": "constellation-field",
@@ -15101,7 +15954,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer98 },
+  }, component: CommunityRenderer100 },
   { ...{
     "id": "topo-field",
     "variantOf": "constellation-field",
@@ -15275,7 +16128,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         "default": 1
       }
     ]
-  }, component: CommunityRenderer99 },
+  }, component: CommunityRenderer101 },
   { ...{
     "id": "brand-orbs",
     "tags": [
@@ -15654,7 +16507,7 @@ export const READY_SHADERS: readonly ReadyShader[] = [
         }
       }
     ]
-  }, component: CommunityRenderer100 }
+  }, component: CommunityRenderer102 }
 ];
 export const VISIBLE_READY_SHADERS = READY_SHADERS.filter((shader) => !shader.variantOf);
 export const READY_SHADER_COLLECTION_COUNT = VISIBLE_READY_SHADERS.reduce((total, shader) => total + (shader.variants?.length || 1), 0);

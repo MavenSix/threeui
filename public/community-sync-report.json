@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-23T07:29:26.170Z",
-  "sourceCommit": "b808785bd1ff7c730da7433f8ad434e57446f493",
+  "generatedAt": "2026-08-25T10:26:00.704Z",
+  "sourceCommit": "bab60dad20e2290cf8e35753bf4fec14c017567e",
   "communityParents": 43,
-  "communityRoutes": 102,
-  "communityVariants": 138,
-  "excludedProParents": 57,
-  "excludedBetaParents": 25,
-  "layoutStylesSha256": "632dc648dcf8eed587ca155c5b58ed84bae4cdce384009faeed95f4a930ced90",
+  "communityRoutes": 104,
+  "communityVariants": 147,
+  "excludedProParents": 86,
+  "excludedBetaParents": 23,
+  "layoutStylesSha256": "5400401f66eb773d05a7b22a6e2fd16651b732a5bd366eee1ab8b479e0327f0d",
   "rendererStylesSha256": "6d975e7d3332aa85d7bc1a55cdff592d63b0403f0988dfefa905dbe4c341d328",
   "components": [
     {
@@ -77,7 +77,16 @@
     {
       "id": "meng-to-sketchbook-landing-page",
       "variantIds": [],
-      "controlKeys": [],
+      "controlKeys": [
+        "headingFont",
+        "bodyFont",
+        "headingWeight",
+        "bodyWeight",
+        "primaryColor",
+        "headingSize",
+        "bodySize",
+        "headingLetterSpacing"
+      ],
       "variantControlKeys": {}
     },
     {
@@ -182,7 +191,13 @@
       "variantIds": [
         "badge"
       ],
-      "controlKeys": [],
+      "controlKeys": [
+        "speed",
+        "particleAmount",
+        "rainAmount",
+        "turbulence",
+        "spread"
+      ],
       "variantControlKeys": {
         "badge": []
       }
@@ -373,7 +388,16 @@
         "spinning-border-button",
         "gradient-cta",
         "lumen-cta",
-        "lumen-cta-ghost"
+        "lumen-cta-ghost",
+        "trochil-signal",
+        "attune-thermal",
+        "tideform-outline",
+        "understory-arrow-pill",
+        "meridian-keycap-primary",
+        "meridian-keycap-secondary",
+        "halvorsen-arrow-pill",
+        "aster-glass-access",
+        "aster-glass-arrow"
       ],
       "controlKeys": [
         "mode",
@@ -400,6 +424,60 @@
           "brightness"
         ],
         "lumen-cta-ghost": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "trochil-signal": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "attune-thermal": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "tideform-outline": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "understory-arrow-pill": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "meridian-keycap-primary": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "meridian-keycap-secondary": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "halvorsen-arrow-pill": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "aster-glass-access": [
+          "mode",
+          "hue",
+          "saturation",
+          "brightness"
+        ],
+        "aster-glass-arrow": [
           "mode",
           "hue",
           "saturation",

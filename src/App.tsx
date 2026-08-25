@@ -2,6 +2,7 @@ import { Suspense, useEffect, useState } from "react";
 import { BrandMark } from "./components/BrandMark";
 import { BrowsePage } from "./components/BrowsePage";
 import { InstallationDocumentation } from "./components/InstallationDocumentation";
+import { MainContentFooter } from "./components/MainContentFooter";
 import { McpDocumentation } from "./components/McpDocumentation";
 import { SearchDialog } from "./components/SearchDialog";
 import { ShaderDocumentation } from "./components/ShaderDocumentation";
@@ -11,7 +12,14 @@ import { UpgradeLink } from "./components/UpgradeLink";
 import { MenuIcon } from "./components/icons";
 import type { ReadyShader } from "./data/shaders";
 import { getReadyShader, READY_SHADERS, VISIBLE_READY_SHADERS } from "./data/publicShaders";
-import { navigationUrl, resolveAppRoute, shaderRoutePath, STATIC_ROUTE_PATHS } from "./routes.js";
+import {
+  browseCategoryRoutePath,
+  browseTagRoutePath,
+  navigationUrl,
+  resolveAppRoute,
+  shaderRoutePath,
+  STATIC_ROUTE_PATHS,
+} from "./routes.js";
 import { applyRouteSeo } from "./seo.js";
 import {
   DARK_PALETTE_STORAGE_KEY,
@@ -31,6 +39,8 @@ type AppPage = "shader" | "browse" | "installation" | "mcp" | "not-found";
 type RouteState = {
   active: ReadyShader;
   activeVariantId?: string;
+  browseCategory?: ReadyShader["category"];
+  browseTag?: string;
   routedVariantId?: string;
   page: AppPage;
   canonicalPath: string;
@@ -38,6 +48,8 @@ type RouteState = {
 };
 
 type ResolvedRoute = {
+  browseCategory?: ReadyShader["category"];
+  browseTag?: string;
   page: AppPage | "oauth-consent" | "pricing";
   canonicalPath: string;
   shader?: ReadyShader;
@@ -57,6 +69,8 @@ function routeStateFromUrl(): RouteState {
   return {
     active,
     activeVariantId,
+    browseCategory: route.browseCategory,
+    browseTag: route.browseTag,
     routedVariantId,
     page: route.page === "oauth-consent" || route.page === "pricing" ? "not-found" : route.page as AppPage,
     canonicalPath: route.canonicalPath,
@@ -116,7 +130,7 @@ function ShaderCapturePage() {
 
 function ThreeUIApp() {
   const [routeState, setRouteState] = useState<RouteState>(() => routeStateFromUrl());
-  const { active, activeVariantId, routedVariantId, page, canonicalPath } = routeState;
+  const { active, activeVariantId, browseCategory, browseTag, routedVariantId, page, canonicalPath } = routeState;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -172,9 +186,42 @@ function ThreeUIApp() {
   };
 
   const selectBrowse = () => {
-    setRouteState((current) => ({ ...current, page: "browse", canonicalPath: STATIC_ROUTE_PATHS.browse }));
+    setRouteState((current) => ({
+      ...current,
+      browseCategory: undefined,
+      browseTag: undefined,
+      page: "browse",
+      canonicalPath: STATIC_ROUTE_PATHS.browse,
+    }));
     setSidebarOpen(false);
     window.history.pushState({}, "", navigationUrl(STATIC_ROUTE_PATHS.browse));
+  };
+
+  const selectBrowseCategory = (category?: ReadyShader["category"]) => {
+    const path = category ? browseCategoryRoutePath(category) : STATIC_ROUTE_PATHS.browse;
+    setRouteState((current) => ({
+      ...current,
+      browseCategory: category,
+      browseTag: undefined,
+      page: "browse",
+      canonicalPath: path,
+    }));
+    setSidebarOpen(false);
+    window.history.pushState({}, "", navigationUrl(path));
+  };
+
+  const selectBrowseTag = (tag: string) => {
+    const path = browseTagRoutePath(tag);
+    setRouteState((current) => ({
+      ...current,
+      browseCategory: undefined,
+      browseTag: tag,
+      page: "browse",
+      canonicalPath: path,
+    }));
+    setSearchOpen(false);
+    setSidebarOpen(false);
+    window.history.pushState({}, "", navigationUrl(path));
   };
 
   const selectMcp = () => {
@@ -185,6 +232,13 @@ function ThreeUIApp() {
 
   const selectPricing = () => {
     window.location.assign("https://threeui.com/pricing");
+  };
+
+  const selectFooterRoute = (path: string) => {
+    window.history.pushState({}, "", navigationUrl(path));
+    setRouteState(routeStateFromUrl());
+    setSearchOpen(false);
+    setSidebarOpen(false);
   };
 
   const selectTheme = (mode: ThemeMode) => {
@@ -223,11 +277,13 @@ function ThreeUIApp() {
   useEffect(() => {
     applyRouteSeo({
       page,
+      browseCategory: page === "browse" ? browseCategory : undefined,
+      browseTag: page === "browse" ? browseTag : undefined,
       shader: page === "shader" ? active : undefined,
       variant: page === "shader" ? seoVariant : undefined,
       canonicalPath,
     }, VISIBLE_READY_SHADERS);
-  }, [active, canonicalPath, page, seoVariant]);
+  }, [active, browseCategory, browseTag, canonicalPath, page, seoVariant]);
 
   useEffect(() => {
     if (!routeState.legacy && window.location.pathname === canonicalPath) return;
@@ -306,7 +362,13 @@ function ThreeUIApp() {
         <div className="pane">
           <div className="pane-scroll scroll-area">
             {page === "browse" ? (
-              <BrowsePage onSelect={selectShader} />
+              <BrowsePage
+                activeCategory={browseCategory}
+                activeTag={browseTag}
+                onCategorySelect={selectBrowseCategory}
+                onSelect={selectShader}
+                onTagSelect={selectBrowseTag}
+              />
             ) : page === "installation" ? (
               <InstallationDocumentation onPricing={selectPricing} onSelect={selectShader} />
             ) : page === "mcp" ? (
@@ -333,6 +395,7 @@ function ThreeUIApp() {
                 onVariantSelect={selectVariant}
               />
             )}
+            <MainContentFooter onNavigate={selectFooterRoute} />
           </div>
         </div>
       </div>

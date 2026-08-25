@@ -20,6 +20,18 @@ const TAU = Math.PI * 2;
 const params = new URLSearchParams(location.search);
 const requestedVariant = params.get('variant');
 const sceneVariant = requestedVariant === 'browser' || requestedVariant === 'iphone' || requestedVariant === 'studio-display' ? requestedVariant : 'badge';
+const runtimeControls = {
+  speed: 1,
+  particleAmount: 1,
+  rainAmount: 1,
+  turbulence: 1,
+  spread: 1
+};
+window.__sparkBadgeControls = runtimeControls;
+const reflectControls = () => {
+  document.documentElement.dataset.sparkControls = JSON.stringify(runtimeControls);
+};
+reflectControls();
 
 /* ------------------------------------------------------------------ *
  *  rng + noise
@@ -488,7 +500,39 @@ const SEG = 0.0082;                 // segment length as a fraction of the stage
 // the stage, so the budget has to scale too or a retina display thins out.
 const NF0 = 17600, NR0 = 300, NW0 = 460, REF_S = 900;
 let NF = NF0, NR = NR0, NW = NW0;
+let BASE_NF = NF0, BASE_NR = NR0, BASE_NW = NW0;
 const CAP_F = 40000, CAP_R = 1400, CAP_W = 1600;
+
+function applyParticleCounts(){
+  NF = Math.min(CAP_F, Math.max(1, Math.round(BASE_NF * runtimeControls.particleAmount)));
+  NR = Math.min(CAP_R, Math.max(0, Math.round(BASE_NR * runtimeControls.rainAmount)));
+  NW = Math.min(CAP_W, Math.max(1, Math.round(BASE_NW * runtimeControls.particleAmount)));
+}
+
+addEventListener('message', event => {
+  if (!event.data) return;
+  if (event.data.type === 'spark-badge-step') {
+    const d = Number.isFinite(event.data.delta) ? Math.max(0, Math.min(0.1, event.data.delta)) : 1/30;
+    CT += d;
+    cycle();
+    stepRain(d); stepFur(d); stepWater(d);
+    render();
+    if (parent !== window) parent.postMessage({ type: 'spark-badge-stepped', frame: event.data.frame }, '*');
+    return;
+  }
+  if (event.data.type !== 'spark-badge-controls') return;
+  const next = event.data.controls || {};
+  const set = (key, lo, hi) => {
+    if (Number.isFinite(next[key])) runtimeControls[key] = Math.max(lo, Math.min(hi, next[key]));
+  };
+  set('speed', 0, 2);
+  set('particleAmount', 0.35, 1.4);
+  set('rainAmount', 0, 1.5);
+  set('turbulence', 0, 2);
+  set('spread', 0.5, 1.75);
+  applyParticleCounts();
+  reflectControls();
+});
 
 const mk = n => ({
   x: new Float32Array(n), y: new Float32Array(n),
@@ -626,9 +670,10 @@ function layout(){
   // at 900@1 against 1440@2.
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
   const D = clamp(Math.pow(s/REF_S, 0.55), 0.6, 1.9);
-  NF = Math.min(CAP_F, Math.round(NF0 * D));
-  NR = Math.min(CAP_R, Math.round(NR0 * D * clamp(VW*VH/(s*s), 0.6, 3.0)));   // sky area
-  NW = Math.min(CAP_W, Math.round(NW0 * D * clamp(VW/s, 0.6, 3.0)));          // waterline width
+  BASE_NF = Math.min(CAP_F, Math.round(NF0 * D));
+  BASE_NR = Math.min(CAP_R, Math.round(NR0 * D * clamp(VW*VH/(s*s), 0.6, 3.0)));   // sky area
+  BASE_NW = Math.min(CAP_W, Math.round(NW0 * D * clamp(VW/s, 0.6, 3.0)));          // waterline width
+  applyParticleCounts();
 
   for (let i = 0; i < CAP_F; i++) spawnFur(i, true);
   for (let i = 0; i < CAP_R; i++) spawnRain(i, true);
@@ -754,8 +799,8 @@ function stepWater(d){
 
 function cycle(){                                      // slow dissolve / reform
   const cyc = 0.5 - 0.5*Math.cos(CT * TAU/17);
-  turb   = 0.62 + cyc*0.78;
-  spread = 0.88 + cyc*0.44;
+  turb   = (0.62 + cyc*0.78) * runtimeControls.turbulence;
+  spread = (0.88 + cyc*0.44) * runtimeControls.spread;
 }
 
 // Freshly spawned embers all sit exactly on the contour, so an un-warmed first
@@ -799,7 +844,7 @@ function frame(ts){
   if (!last) last = ts;
   let dt = (ts - last)/1000; last = ts;
   if (dt > 0.1) dt = 0.1;
-  const rate = reduced ? 0.25 : 1;
+  const rate = runtimeControls.speed * (reduced ? 0.25 : 1);
   CT += dt * rate;
   cycle();
 

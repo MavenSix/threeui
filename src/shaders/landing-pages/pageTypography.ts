@@ -87,6 +87,11 @@ export type PageTypography = {
   filter: (baseHex?: string) => string;
 };
 
+export type PageInlineStyleOverride = {
+  selector: string;
+  styles: Readonly<Record<string, string>>;
+};
+
 export type PageTypographyRecipe = {
   headingFonts: readonly PageFont[];
   bodyFonts: readonly PageFont[];
@@ -102,12 +107,20 @@ export type PageTypographyRecipe = {
   bodySize: readonly [number, number, number];
   headingLetterSpacing: readonly [number, number, number];
   css: (type: PageTypography) => string;
+  inlineStyles?: (type: PageTypography) => readonly PageInlineStyleOverride[];
 };
 
 export type LandingPageCustomization = {
   css: string;
   /** Set only when a chosen face has to be fetched. */
   fontHref?: string;
+  /**
+   * Used only by preserved pages whose authored typography lives in element
+   * style attributes. Appended CSS cannot outrank those attributes without
+   * priority overrides, so these values are applied to the loaded DOM while the
+   * packaged HTML file itself remains byte-exact.
+   */
+  inlineStyles?: readonly PageInlineStyleOverride[];
 };
 
 /* ── colour ──────────────────────────────────────────────────────────── */
@@ -268,7 +281,7 @@ export function usePageTypography(recipe: PageTypographyRecipe, props: PageTypog
       filter,
     };
 
-    return { css: recipe.css(type), fontHref: fontHrefFor([heading, body]) };
+    return { css: recipe.css(type), fontHref: fontHrefFor([heading, body]), inlineStyles: recipe.inlineStyles?.(type) };
   }, [recipe, headingFont, bodyFont, headingWeight, bodyWeight, primaryColor, headingSize, bodySize, headingLetterSpacing]);
 }
 
@@ -276,6 +289,54 @@ export function usePageTypography(recipe: PageTypographyRecipe, props: PageTypog
 
 const STYLE_ID = "threeui-page-typography";
 const FONT_LINK_ID = "threeui-page-typography-fonts";
+const MESSAGE_TYPE = "threeui-page-customization";
+
+/**
+ * Opaque srcDoc frames cannot expose contentDocument to React. This bridge is
+ * appended only to the derived srcDoc string and applies the same live style
+ * contract from inside the sandbox, leaving the packaged HTML file untouched.
+ */
+export const PAGE_CUSTOMIZATION_BRIDGE = `<script>
+window.addEventListener("message", function (event) {
+  var detail = event.data;
+  if (!detail || detail.type !== "${MESSAGE_TYPE}") return;
+  var head = document.head;
+  if (!head) return;
+
+  var link = document.getElementById("${FONT_LINK_ID}");
+  if (detail.fontHref) {
+    if (!link) {
+      link = document.createElement("link");
+      link.id = "${FONT_LINK_ID}";
+      link.rel = "stylesheet";
+      head.appendChild(link);
+    }
+    if (link.getAttribute("href") !== detail.fontHref) link.href = detail.fontHref;
+  } else if (link) {
+    link.remove();
+  }
+
+  var style = document.getElementById("${STYLE_ID}");
+  if (!detail.css) {
+    if (style) style.remove();
+    return;
+  }
+  if (!style) {
+    style = document.createElement("style");
+    style.id = "${STYLE_ID}";
+  }
+  if (style.textContent !== detail.css) style.textContent = detail.css;
+  head.appendChild(style);
+});
+</script>`;
+
+export function postPageCustomization(frame: HTMLIFrameElement | null, customization?: LandingPageCustomization) {
+  frame?.contentWindow?.postMessage({
+    type: MESSAGE_TYPE,
+    css: customization?.css ?? "",
+    fontHref: customization?.fontHref,
+  }, "*");
+}
 
 /**
  * Appended to the frame's own head rather than written into the document, so
@@ -307,4 +368,10 @@ export function applyPageCustomization(frame: HTMLIFrameElement | null, customiz
   style.id = STYLE_ID;
   if (style.textContent !== customization.css) style.textContent = customization.css;
   frameDocument.head.append(style);
+
+  for (const override of customization.inlineStyles ?? []) {
+    for (const element of frameDocument.querySelectorAll<HTMLElement>(override.selector)) {
+      for (const [property, value] of Object.entries(override.styles)) element.style.setProperty(property, value);
+    }
+  }
 }

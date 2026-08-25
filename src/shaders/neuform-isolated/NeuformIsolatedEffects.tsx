@@ -285,6 +285,45 @@ function transformThinkingButtonSource(source: string, mode: EffectMode) {
 }
 
 /* ------------------------------------------------------------------ *
+   Owner-selected button surfaces
+
+   Both documents stay byte-for-byte exact. Each was authored against a
+   single ground — the pill against white, the dot border against black —
+   so the mode the preview is set to decides which one has to be re-toned.
+   Geometry, elevation, hover choreography, and the masked metallic edge
+   are left alone; only the values the other ground would swallow move.
+ * ------------------------------------------------------------------ */
+
+/* authored on white: over the dark ground the translucent black fill sinks
+   below the backdrop and the 60% black label disappears entirely */
+function transformGradientPillButtonSource(source: string, mode: EffectMode) {
+  if (mode !== "dark") return source;
+
+  return source
+    /* the concave metallic fill, mirrored — bright at the edges, dim through
+       the middle, so the pill still reads as a curved plate rather than a hole */
+    .replace("from-black/10 via-black/20 to-black/10", "from-white/[0.16] via-white/[0.07] to-white/[0.16]")
+    .replace("text-black/60", "text-white/70")
+    .replace("text-slate-600", "text-slate-200")
+    .replace('stroke="#666"', 'stroke="#e5e7eb"')
+    /* the hover fill sits behind the gradient, so near-white flashed the pill */
+    .replace("hover:bg-slate-50", "hover:bg-white/10");
+}
+
+/* authored on black: dots, dashes, hatch, border, label, and arrow are all
+   white at low alpha, so on the light ground nothing shows until hover */
+function transformDotBorderButtonSource(source: string, mode: EffectMode) {
+  if (mode !== "light") return source;
+
+  return source
+    .replaceAll("#fffa", "#111a")   /* corner dots, dashed border, hovered arrow stroke */
+    .replaceAll("#fffd", "#111d")   /* label */
+    .replaceAll("#fff4", "#1114")   /* resting arrow stroke */
+    .replaceAll("#fff3", "#1113")   /* diagonal hatch, button border, hovered arrow fill */
+    .replaceAll("#fff2", "#1112");  /* resting arrow fill */
+}
+
+/* ------------------------------------------------------------------ *
    Gallery Heading
 
    The packaged document stays byte-for-byte exact. The rewrite below turns
@@ -890,6 +929,7 @@ const EFFECTS = {
     source: dotBorderButtonSource,
     background: "#111318",
     theme: { lightBackground: "#f4f7fb", darkBackground: "#111318" },
+    transformSource: transformDotBorderButtonSource,
     targets: [{ selector: ".component-wrapper .btn-wrapper", role: "button", preserveTransform: true }],
   },
   gradientCta: {
@@ -925,6 +965,7 @@ const EFFECTS = {
     source: gradientPillButtonSource,
     background: "#111318",
     theme: { lightBackground: "#f4f7fb", darkBackground: "#111318" },
+    transformSource: transformGradientPillButtonSource,
     targets: [{ selector: ".component-wrapper button", role: "button", preserveTransform: true }],
   },
   gradientBeamCta: {

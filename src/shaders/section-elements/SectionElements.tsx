@@ -33,9 +33,11 @@ function SectionButton({ children = "Sign up", className = "", type = "button" }
   );
 }
 
-export function DarkGlassButton({ className, style }: SectionCompositionProps) {
+/* the only section composition offered on both grounds, so it is the only one
+   that takes a mode; the rest stay on the dark ground they were authored for */
+export function DarkGlassButton({ className, style, mode = "dark" }: SectionCompositionProps & { mode?: "light" | "dark" }) {
   return (
-    <div className={classNames("section-element section-element--glass-button", className)} style={style}>
+    <div className={classNames("section-element section-element--glass-button", className)} data-mode={mode} style={style}>
       <SectionButton />
     </div>
   );

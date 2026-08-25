@@ -20,6 +20,13 @@ if (maps.length) throw new Error(`Public build contains source maps:\n${maps.map
 
 const textFiles = files.filter((path) => [".css", ".html", ".js", ".json"].includes(extname(path)));
 const combined = (await Promise.all(textFiles.map((path) => readFile(path, "utf8")))).join("\n");
+const indexHtml = await readFile(join(dist, "index.html"), "utf8");
+if (/\b(?:src|href)="\.\/assets\//.test(indexHtml)) {
+  throw new Error("Public build uses relative asset URLs that break direct deep links");
+}
+if (!/\b(?:src|href)="\/assets\//.test(indexHtml)) {
+  throw new Error("Public build is missing root-relative asset URLs");
+}
 for (const pattern of [
   /\/Users\/[A-Za-z0-9._-]+\//,
   /shader-field-react/,

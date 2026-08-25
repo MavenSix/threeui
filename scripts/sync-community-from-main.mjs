@@ -27,6 +27,7 @@ const shellFiles = [
   "src/styles.css",
   "src/theme.ts",
   "src/components/BrandMark.tsx",
+  "src/components/browse-sort-toggle.css",
   "src/components/CheckpointSliderControl.tsx",
   "src/components/GitHubStars.tsx",
   "src/components/InstallationDocumentation.tsx",
@@ -50,6 +51,7 @@ const publicAdapterFiles = [
   "src/vite-env.d.ts",
   "src/components/BrowsePage.tsx",
   "src/components/McpDocumentation.tsx",
+  "src/components/MainContentFooter.tsx",
   "src/components/RightRailPromos.tsx",
   "src/components/SearchDialog.tsx",
   "src/components/ShaderDocumentation.tsx",
@@ -89,6 +91,7 @@ const excludedAssetPaths = new Set([
 
 const textExtensions = new Set([".css", ".glsl", ".html", ".js", ".jsx", ".json", ".mjs", ".ts", ".tsx", ".txt"]);
 const mediaOrigin = "https://threeui.com";
+const publicExcludedParentIds = new Set(["orrery-page"]);
 const mixedAccessParentIds = new Set(["energy-orb", "spark-badge", "sylva-hero", "sylva-living-world", "temple-night"]);
 
 function posixPath(value) {
@@ -547,7 +550,12 @@ try {
   await vite.close();
 }
 
-const freeShaders = shaderModule.READY_SHADERS.filter((shader) => shader.status !== "beta" && shaderModule.getShaderAccess(shader) !== "pro");
+const freeShaders = shaderModule.READY_SHADERS.filter((shader) => (
+  shader.status !== "beta"
+  && shaderModule.getShaderAccess(shader) !== "pro"
+  && !publicExcludedParentIds.has(String(shader.id))
+  && !publicExcludedParentIds.has(String(shader.variantOf))
+));
 const visibleFreeShaders = freeShaders.filter((shader) => !shader.variantOf);
 const freeIds = new Set(freeShaders.map((shader) => String(shader.id)));
 
