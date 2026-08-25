@@ -50,6 +50,7 @@ const publicAdapterFiles = [
   "src/vite-env.d.ts",
   "src/components/BrowsePage.tsx",
   "src/components/McpDocumentation.tsx",
+  "src/components/MainContentFooter.tsx",
   "src/components/RightRailPromos.tsx",
   "src/components/SearchDialog.tsx",
   "src/components/ShaderDocumentation.tsx",

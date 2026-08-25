@@ -225,8 +225,19 @@ test("the public shell keeps the main UI but has no auth or private catalog runt
   assert.ok(sectionAssets.every((name) => !name.endsWith(".woff2")), "restricted font binaries must not ship");
 
   const app = await readFile(join(root, "src", "App.tsx"), "utf8");
+  const footer = await readFile(join(root, "src", "components", "MainContentFooter.tsx"), "utf8");
   const sidebar = await readFile(join(root, "src", "components", "Sidebar.tsx"), "utf8");
+  const sync = await readFile(join(root, "scripts", "sync-community-from-main.mjs"), "utf8");
   const upgrade = await readFile(join(root, "src", "components", "UpgradeLink.tsx"), "utf8");
+  const viteConfig = await readFile(join(root, "vite.config.js"), "utf8");
   for (const token of ["sidebar", "topbar", "pane-scroll", "mobile-nav-scrim"]) assert.match(`${app}\n${sidebar}`, new RegExp(token));
+  assert.match(app, /<MainContentFooter onNavigate=\{selectFooterRoute\} \/>/);
+  assert.match(app, /browseCategoryRoutePath/);
+  assert.match(app, /browseTagRoutePath/);
+  assert.match(footer, /data-main-content-footer/);
+  assert.match(footer, /https:\/\/threeui\.com\/pricing/);
+  assert.match(footer, /https:\/\/threeui\.com\/privacy/);
+  assert.match(sync, /src\/components\/MainContentFooter\.tsx/);
   assert.match(upgrade, /https:\/\/threeui\.com\/pricing/);
+  assert.match(viteConfig, /base:\s*["']\/["']/);
 });

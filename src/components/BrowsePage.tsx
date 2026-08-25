@@ -7,28 +7,25 @@ import {
   createCatalogResults,
 } from "../data/catalogResults";
 import type { ReadyShader } from "../data/shaders";
-import { shaderRoutePath } from "../routes.js";
+import { BROWSE_CATEGORIES, browseRouteContent } from "../browseTaxonomy.js";
+import {
+  browseCategoryRoutePath,
+  browseTagRoutePath,
+  shaderRoutePath,
+  STATIC_ROUTE_PATHS,
+} from "../routes.js";
 import { RECENT_SHADERS } from "./Sidebar";
 import { SearchIcon } from "./icons";
 
 type BrowsePageProps = {
+  activeCategory?: ReadyShader["category"];
+  activeTag?: string;
+  onCategorySelect: (category?: ReadyShader["category"]) => void;
   onSelect: (id: ReadyShader["id"], variantId?: string) => void;
+  onTagSelect: (tag: string) => void;
 };
 
 const MAX_VISIBLE_TAGS = 3;
-
-const BROWSE_CATEGORIES = [
-  "Landing Pages",
-  "Hero",
-  "Three.js",
-  "Backgrounds",
-  "Buttons",
-  "Text Animation",
-  "UI Elements",
-  "CSS",
-  "Motion Design",
-  "Sections",
-] as const satisfies readonly ReadyShader["category"][];
 
 export const SITE_TITLE = "Procedural Three.js web design templates for agents";
 export const SITE_DESCRIPTION = "Fully customizable. Copyable as prompts.";
@@ -39,17 +36,22 @@ const BROWSE_RESULTS = [
   ...CATALOG_RESULTS.filter(({ shader }) => !RECENT_SHADER_IDS.has(shader.id)),
 ];
 
-export function BrowsePage({ onSelect }: BrowsePageProps) {
+export function BrowsePage({ activeCategory, activeTag, onCategorySelect, onSelect, onTagSelect }: BrowsePageProps) {
   const [query, setQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState<ReadyShader["category"] | null>(null);
   const [activePreview, setActivePreview] = useState<string | null>(null);
   const filteredResults = useMemo(
     () => BROWSE_RESULTS.filter((result) => (
       (!activeCategory || result.shader.category === activeCategory)
+      && (!activeTag || result.shader.tags.includes(activeTag))
       && catalogResultMatchesQuery(result, query)
     )),
-    [activeCategory, query],
+    [activeCategory, activeTag, query],
   );
+  const routeResultCount = BROWSE_RESULTS.filter(({ shader }) => (
+    (!activeCategory || shader.category === activeCategory)
+    && (!activeTag || shader.tags.includes(activeTag))
+  )).length;
+  const pageContent = browseRouteContent({ browseCategory: activeCategory, browseTag: activeTag }, routeResultCount);
 
   const beginPreview = (id: string) => {
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) setActivePreview(id);
@@ -60,16 +62,28 @@ export function BrowsePage({ onSelect }: BrowsePageProps) {
       <header className="browse-header">
         <div className="browse-heading-row">
           <div>
-            <h1 id="browse-title">{SITE_TITLE}</h1>
-            <p className="lede">{SITE_DESCRIPTION}</p>
+            <h1 id="browse-title">{pageContent.heading}</h1>
+            <p className="lede">{pageContent.description}</p>
+            {activeTag ? (
+              <a
+                className="browse-active-filter"
+                href={STATIC_ROUTE_PATHS.browse}
+                onClick={(event) => {
+                  event.preventDefault();
+                  onCategorySelect();
+                }}
+              >
+                Tagged {activeTag} <span aria-hidden="true">×</span>
+              </a>
+            ) : null}
           </div>
           <label className="browse-filter">
             <SearchIcon />
             <input
               type="search"
               value={query}
-              placeholder={`Search ${BROWSE_RESULTS.length} components`}
-              aria-label={`Search ${BROWSE_RESULTS.length} components`}
+              placeholder={`Search ${routeResultCount} components`}
+              aria-label={`Search ${routeResultCount} components`}
               autoComplete="off"
               spellCheck={false}
               onChange={(event) => {
@@ -80,21 +94,23 @@ export function BrowsePage({ onSelect }: BrowsePageProps) {
           </label>
         </div>
         <div className="browse-category-filters" role="group" aria-label="Filter components by category">
-          {BROWSE_CATEGORIES.map((category) => {
+          {(BROWSE_CATEGORIES as readonly ReadyShader["category"][]).map((category) => {
             const isActive = activeCategory === category;
+            const href = isActive ? STATIC_ROUTE_PATHS.browse : browseCategoryRoutePath(category);
             return (
-              <button
-                type="button"
+              <a
                 key={category}
-                aria-pressed={isActive}
+                aria-current={isActive ? "page" : undefined}
+                href={href}
                 title={isActive ? "Show all categories" : `Filter by ${category}`}
-                onClick={() => {
-                  setActiveCategory(isActive ? null : category);
+                onClick={(event) => {
+                  event.preventDefault();
+                  onCategorySelect(isActive ? undefined : category);
                   setActivePreview(null);
                 }}
               >
                 {category}
-              </button>
+              </a>
             );
           })}
         </div>
@@ -151,11 +167,23 @@ export function BrowsePage({ onSelect }: BrowsePageProps) {
                     <span className="browse-title-row">
                       <strong>{label}</strong>
                     </span>
-                    <span className="browse-tags" aria-label="Tags">
-                      {shader.tags.slice(0, MAX_VISIBLE_TAGS).map((tag) => <span key={tag}>{tag}</span>)}
-                    </span>
                   </span>
                 </a>
+                <nav className="browse-tags" aria-label={`${label} tags`}>
+                  {shader.tags.slice(0, MAX_VISIBLE_TAGS).map((tag) => (
+                    <a
+                      href={browseTagRoutePath(tag)}
+                      key={tag}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        onTagSelect(tag);
+                        setActivePreview(null);
+                      }}
+                    >
+                      {tag}
+                    </a>
+                  ))}
+                </nav>
               </article>
             );
           })}
