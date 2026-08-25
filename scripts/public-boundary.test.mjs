@@ -53,6 +53,9 @@ test("the public catalog is the complete current Community snapshot", () => {
   assert.equal(allRoutes.length, report.communityRoutes);
   assert.equal(new Set(allRoutes.map((shader) => shader.id)).size, allRoutes.length);
   assert.ok(allRoutes.every((shader) => shader.status === undefined && shader.access === undefined));
+  assert.ok(!allRoutes.some((shader) => shader.id === "orrery-page" || shader.variantOf === "orrery-page"));
+  assert.ok(!sourceRegistry.readyIds.includes("orrery-page"));
+  assert.ok(!componentReport.has("orrery-page"));
 });
 
 test("every free variant and control stays in sync with the source snapshot", () => {
@@ -225,6 +228,8 @@ test("the public shell keeps the main UI but has no auth or private catalog runt
   assert.ok(sectionAssets.every((name) => !name.endsWith(".woff2")), "restricted font binaries must not ship");
 
   const app = await readFile(join(root, "src", "App.tsx"), "utf8");
+  const browse = await readFile(join(root, "src", "components", "BrowsePage.tsx"), "utf8");
+  const browseSortStyles = await readFile(join(root, "src", "components", "browse-sort-toggle.css"), "utf8");
   const footer = await readFile(join(root, "src", "components", "MainContentFooter.tsx"), "utf8");
   const sidebar = await readFile(join(root, "src", "components", "Sidebar.tsx"), "utf8");
   const sync = await readFile(join(root, "scripts", "sync-community-from-main.mjs"), "utf8");
@@ -238,6 +243,11 @@ test("the public shell keeps the main UI but has no auth or private catalog runt
   assert.match(footer, /https:\/\/threeui\.com\/pricing/);
   assert.match(footer, /https:\/\/threeui\.com\/privacy/);
   assert.match(sync, /src\/components\/MainContentFooter\.tsx/);
+  assert.match(sync, /publicExcludedParentIds = new Set\(\["orrery-page"\]\)/);
+  assert.match(browse, /BROWSE_SORT_MODES/);
+  assert.match(browse, /sortCatalogResultsByPopularity\(BROWSE_RESULTS, COMMUNITY_POPULARITY\)/);
+  assert.match(browse, /className="browse-controls-row"/);
+  assert.match(browseSortStyles, /\.browse-sort-toggle button\[aria-pressed="true"\]/);
   assert.match(upgrade, /https:\/\/threeui\.com\/pricing/);
   assert.match(viteConfig, /base:\s*["']\/["']/);
 });

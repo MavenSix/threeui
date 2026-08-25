@@ -7,6 +7,7 @@ import {
   createCatalogResults,
 } from "../data/catalogResults";
 import type { ReadyShader } from "../data/shaders";
+import { sortCatalogResultsByPopularity } from "../catalogPresentation.js";
 import { BROWSE_CATEGORIES, browseRouteContent } from "../browseTaxonomy.js";
 import {
   browseCategoryRoutePath,
@@ -15,6 +16,7 @@ import {
   STATIC_ROUTE_PATHS,
 } from "../routes.js";
 import { RECENT_SHADERS } from "./Sidebar";
+import "./browse-sort-toggle.css";
 import { SearchIcon } from "./icons";
 
 type BrowsePageProps = {
@@ -26,6 +28,39 @@ type BrowsePageProps = {
 };
 
 const MAX_VISIBLE_TAGS = 3;
+
+const BROWSE_SORT_MODES = [
+  { id: "popular", label: "Popular" },
+  { id: "recent", label: "Recent" },
+] as const;
+
+type BrowseSortMode = (typeof BROWSE_SORT_MODES)[number]["id"];
+
+// Public-safe snapshot of the live Popular ordering. The Community mirror
+// keeps the same control without shipping Supabase, auth, keys, or private APIs.
+const COMMUNITY_POPULAR_SHADER_IDS = [
+  "sylva-hero",
+  "meng-to-sketchbook-landing-page",
+  "kage-landing-page",
+  "complete-shelf-landing-page",
+  "predictive-arc",
+  "sylva-living-world",
+  "structure-flow",
+  "koi-studies",
+  "japanese-tower",
+  "character-carousel",
+  "bestsellers-book-showcase",
+  "circle-buttons",
+  "brand-orbs",
+  "energy-orb",
+  "crt",
+  "temple-night",
+  "rectangle-buttons",
+] as const;
+const COMMUNITY_POPULARITY = Object.fromEntries(COMMUNITY_POPULAR_SHADER_IDS.map((id, index) => [
+  id,
+  { views: COMMUNITY_POPULAR_SHADER_IDS.length - index, copies: 0 },
+]));
 
 export const SITE_TITLE = "Procedural Three.js web design templates for agents";
 export const SITE_DESCRIPTION = "Fully customizable. Copyable as prompts.";
@@ -39,13 +74,20 @@ const BROWSE_RESULTS = [
 export function BrowsePage({ activeCategory, activeTag, onCategorySelect, onSelect, onTagSelect }: BrowsePageProps) {
   const [query, setQuery] = useState("");
   const [activePreview, setActivePreview] = useState<string | null>(null);
+  const [sortMode, setSortMode] = useState<BrowseSortMode>("popular");
+  const visibleBrowseResults = useMemo(
+    () => sortMode === "recent"
+      ? BROWSE_RESULTS
+      : sortCatalogResultsByPopularity(BROWSE_RESULTS, COMMUNITY_POPULARITY),
+    [sortMode],
+  );
   const filteredResults = useMemo(
-    () => BROWSE_RESULTS.filter((result) => (
+    () => visibleBrowseResults.filter((result) => (
       (!activeCategory || result.shader.category === activeCategory)
       && (!activeTag || result.shader.tags.includes(activeTag))
       && catalogResultMatchesQuery(result, query)
     )),
-    [activeCategory, activeTag, query],
+    [activeCategory, activeTag, query, visibleBrowseResults],
   );
   const routeResultCount = BROWSE_RESULTS.filter(({ shader }) => (
     (!activeCategory || shader.category === activeCategory)
@@ -77,42 +119,61 @@ export function BrowsePage({ activeCategory, activeTag, onCategorySelect, onSele
               </a>
             ) : null}
           </div>
-          <label className="browse-filter">
-            <SearchIcon />
-            <input
-              type="search"
-              value={query}
-              placeholder={`Search ${routeResultCount} components`}
-              aria-label={`Search ${routeResultCount} components`}
-              autoComplete="off"
-              spellCheck={false}
-              onChange={(event) => {
-                setQuery(event.target.value);
-                setActivePreview(null);
-              }}
-            />
-          </label>
         </div>
-        <div className="browse-category-filters" role="group" aria-label="Filter components by category">
-          {(BROWSE_CATEGORIES as readonly ReadyShader["category"][]).map((category) => {
-            const isActive = activeCategory === category;
-            const href = isActive ? STATIC_ROUTE_PATHS.browse : browseCategoryRoutePath(category);
-            return (
-              <a
-                key={category}
-                aria-current={isActive ? "page" : undefined}
-                href={href}
-                title={isActive ? "Show all categories" : `Filter by ${category}`}
-                onClick={(event) => {
-                  event.preventDefault();
-                  onCategorySelect(isActive ? undefined : category);
+        <div className="browse-controls-row">
+          <div className="browse-category-filters" role="group" aria-label="Filter components by category">
+            {(BROWSE_CATEGORIES as readonly ReadyShader["category"][]).map((category) => {
+              const isActive = activeCategory === category;
+              const href = isActive ? STATIC_ROUTE_PATHS.browse : browseCategoryRoutePath(category);
+              return (
+                <a
+                  key={category}
+                  aria-current={isActive ? "page" : undefined}
+                  href={href}
+                  title={isActive ? "Show all categories" : `Filter by ${category}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onCategorySelect(isActive ? undefined : category);
+                    setActivePreview(null);
+                  }}
+                >
+                  {category}
+                </a>
+              );
+            })}
+          </div>
+          <div className="browse-search-controls">
+            <label className="browse-filter">
+              <SearchIcon />
+              <input
+                type="search"
+                value={query}
+                placeholder={`Search ${routeResultCount} components`}
+                aria-label={`Search ${routeResultCount} components`}
+                autoComplete="off"
+                spellCheck={false}
+                onChange={(event) => {
+                  setQuery(event.target.value);
                   setActivePreview(null);
                 }}
-              >
-                {category}
-              </a>
-            );
-          })}
+              />
+            </label>
+            <div className="browse-sort-toggle" role="group" aria-label="Sort components">
+              {BROWSE_SORT_MODES.map((mode) => (
+                <button
+                  type="button"
+                  key={mode.id}
+                  aria-pressed={sortMode === mode.id}
+                  onClick={() => {
+                    setSortMode(mode.id);
+                    setActivePreview(null);
+                  }}
+                >
+                  {mode.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </header>
 
