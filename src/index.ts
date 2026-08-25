@@ -26,6 +26,7 @@ export { DiagnosticsPanel } from "./package-components/DiagnosticsPanel";
 export { DimensionalField } from "./package-components/DimensionalField";
 export { DotBorderButton } from "./package-components/DotBorderButton";
 export { DotMatrixBackground } from "./package-components/DotMatrixBackground";
+export { EditorialIntroSection } from "./package-components/EditorialIntroSection";
 export { ElementsBackground } from "./package-components/ElementsBackground";
 export { ElementsCollection } from "./package-components/ElementsCollection";
 export { EmberStorm } from "./package-components/EmberStorm";
@@ -64,6 +65,7 @@ export { MengToSketchbookLandingPage } from "./package-components/MengToSketchbo
 export { MorphingGlyphCloud } from "./package-components/MorphingGlyphCloud";
 export { NebulaBackground } from "./package-components/NebulaBackground";
 export { NeonTypography } from "./package-components/NeonTypography";
+export { NewsletterFooterSection } from "./package-components/NewsletterFooterSection";
 export { OrbitalSphereBackground } from "./package-components/OrbitalSphereBackground";
 export { OutlineTypeflow } from "./package-components/OutlineTypeflow";
 export { ParticleDrift } from "./package-components/ParticleDrift";

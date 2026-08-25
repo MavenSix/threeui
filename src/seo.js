@@ -1,4 +1,5 @@
 import { shaderRoutePath, STATIC_ROUTE_PATHS } from "./routes.js";
+import { browseRouteContent, browseRouteFaqs } from "./browseTaxonomy.js";
 
 export const SITE_TITLE = "Three.js Components & Interactive Shaders";
 export const SITE_DESCRIPTION = "Browse high-quality Three.js hero components, 3D shaders, prompts, and templates with customizable variants. Framework-agnostic. Copy, paste, and ship.";
@@ -36,7 +37,7 @@ function absoluteUrl(origin, path) {
 
 function catalogItems(catalog, origin) {
   return catalog.flatMap((shader) => {
-    const variants = [undefined, ...(shader.variants ?? [])];
+    const variants = shader.variants?.length ? shader.variants : [undefined];
     return variants.map((variant) => ({
       "@type": "ListItem",
       position: 0,
@@ -46,14 +47,29 @@ function catalogItems(catalog, origin) {
   }).map((item, index) => ({ ...item, position: index + 1 }));
 }
 
+function faqPage(faqs, name, url) {
+  return {
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    name,
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
 export function buildRouteSeo(route, origin, catalog = []) {
   const defaultImage = absoluteUrl(origin, "/thumbnails/threeui-intro.jpg");
-  const browseImage = absoluteUrl(origin, "/thumbnails/threeui-browse.jpg");
   const indexable = route.page !== "not-found" && route.page !== "capture" && route.page !== "oauth-consent";
   let title = brandedTitle(SITE_TITLE);
   let description = SITE_DESCRIPTION;
   let canonicalPath = route.canonicalPath ?? STATIC_ROUTE_PATHS.browse;
-  let image = route.page === "browse" ? browseImage : defaultImage;
+  let image = defaultImage;
   let structuredData;
 
   if (route.page === "installation") {
@@ -157,17 +173,30 @@ export function buildRouteSeo(route, origin, catalog = []) {
     title = brandedTitle("Page Not Found");
     description = "The requested ThreeUI page could not be found. Browse the complete component collection instead.";
   } else {
-    const items = catalogItems(catalog, origin);
+    const browseCatalog = route.browseCategory
+      ? catalog.filter((shader) => shader.category === route.browseCategory)
+      : route.browseTag
+        ? catalog.filter((shader) => shader.tags?.includes(route.browseTag))
+        : catalog;
+    const items = catalogItems(browseCatalog, origin);
+    const browseContent = browseRouteContent(route, items.length);
+    const browseFaqs = browseRouteFaqs(route);
+    const browseUrl = absoluteUrl(origin, canonicalPath);
+    title = brandedTitle(browseContent.title);
+    description = browseContent.description;
     structuredData = {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: SITE_TITLE,
+      name: browseContent.heading,
       description,
-      url: absoluteUrl(origin, canonicalPath),
+      url: browseUrl,
       hasPart: [
         { "@type": "TechArticle", name: "Installation", url: absoluteUrl(origin, STATIC_ROUTE_PATHS.installation) },
         { "@type": "TechArticle", name: "MCP", url: absoluteUrl(origin, STATIC_ROUTE_PATHS.mcp) },
         { "@type": "WebPage", name: "Pricing", url: absoluteUrl(origin, STATIC_ROUTE_PATHS.pricing) },
+        ...(browseFaqs.length > 0
+          ? [faqPage(browseFaqs, `Frequently asked questions about ${browseContent.heading}`, browseUrl)]
+          : []),
       ],
       mainEntity: {
         "@type": "ItemList",

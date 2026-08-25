@@ -216,6 +216,49 @@
   border-radius: 999px;
   font-size: clamp(14px, 2.25cqw, 28px);
 }
+
+/* ---------------------------------------------------------------- *
+   Dark Glass on paper
+
+   The same material read on the other ground, and scoped to this one
+   composition so every other section keeps the dark stage it was drawn
+   on. Each authored layer keeps its geometry, mask, and timing; only its
+   direction flips — the body goes from smoked to frosted, and the two
+   white highlights (the revolving conic and the hover pool) become the
+   shade that white cast on charcoal, since white on paper is nothing.
+ * ---------------------------------------------------------------- */
+.section-element--glass-button[data-mode="light"] {
+  background: #eeedeb;
+  color: rgba(17, 17, 17, 0.95);
+}
+
+.section-element--glass-button[data-mode="light"]::before {
+  background: rgba(17, 17, 17, 0.06);
+}
+
+.section-element--glass-button[data-mode="light"] .section-button {
+  color: rgba(17, 17, 17, 0.72);
+}
+
+.section-element--glass-button[data-mode="light"] .section-button::before {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 2px 4px 16px rgba(17, 17, 17, 0.05), 0 10px 26px -12px rgba(17, 17, 17, 0.4);
+}
+
+/* the hairline is masked to a quarter of its own opacity, which reads on
+   charcoal but not on paper, so the ink is both darker and less faded */
+.section-element--glass-button[data-mode="light"] .section-button::after {
+  border-color: rgba(17, 17, 17, 0.34);
+  opacity: 0.45;
+}
+
+.section-element--glass-button[data-mode="light"] .section-button__circle::before {
+  background: conic-gradient(from 180deg, rgba(17, 17, 17, 0.012) 180deg, rgba(17, 17, 17, 0.07) 360deg);
+}
+
+.section-element--glass-button[data-mode="light"] .section-button__circle::after {
+  background: rgba(17, 17, 17, 0.12);
+}
 .editorial-intro h2 {
   margin: 0;
   background: linear-gradient(93deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.5));
