@@ -22,6 +22,7 @@ const shellFiles = [
   "src/browseTaxonomy.js",
   "src/catalogPresentation.js",
   "src/detailPreviews.ts",
+  "src/mediaUrls.js",
   "src/routes.js",
   "src/seo.js",
   "src/styles.css",
